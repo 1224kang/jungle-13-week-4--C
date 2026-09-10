@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # jungle-13-week-4--C
 krafton jungle 13기 4주차 C 자료구조 공부용 레포지토리 입니다. 
 =======
@@ -11,4 +11,4 @@ Approperiate `steps` to do each question: **Read the question's requirement in q
 The main frames of each question are provided such that the function part is left empty for you to write and fill in the blank to complete the question. Basic functionalities like `POP/PUSH/DEQUEUE/ENQUEUE/REMOVE_LINKED_NODE/FIND_LINKED_NODE` are already provided in the main frame. You don't need to write these basic functions.
 
 These questions only illustrate some basis of Data Structure. However, they can be your keys of the door to new world of CS. After finishing these questions, you may have a brief view of what the Data Structure is.
->>>>>>> dcc1757 (Initial Commit)
+
