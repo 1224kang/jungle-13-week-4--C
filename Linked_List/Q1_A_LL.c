@@ -91,6 +91,45 @@ int main()
 int insertSortedLL(LinkedList *ll, int item)
 {
 	/* add your code here */
+
+	if(ll==NULL){
+		return -1;
+	}
+
+	ListNode *tmp; //현재 노드 
+	
+	int index=0;
+
+	if(ll->head==NULL){
+		insertNode(ll,index,item);
+		return index;
+	}
+
+	tmp=ll->head;
+	
+	while (tmp->item!=NULL) 
+	{
+		//링크드 리스트의 다음 값이 target보다 더 작을 때 
+		if (tmp->item < item){
+			tmp=tmp->next;
+			index++;
+		}
+		
+		//링크드 리스트의 다음 값이 target과 중복될 때
+		else if (tmp->item == item){
+			return -1;
+		}
+
+		else{
+			insertNode(ll,index,item);
+			return index;
+		}
+	}
+
+	//item이 모든 기존 값보다 큰 경우 
+	insertNode(ll,index,item);
+	return index;
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -144,7 +183,7 @@ ListNode *findNode(LinkedList *ll, int index){
 		temp = temp->next;
 		if (temp == NULL)
 			return NULL;
-		index--;
+		index--; //앞으로 몇 번 이동해야 하는지 세는 카운터 
 	}
 
 	return temp;
@@ -160,10 +199,11 @@ int insertNode(LinkedList *ll, int index, int value){
 	// If empty list or inserting first node, need to update head pointer
 	if (ll->head == NULL || index == 0){
 		cur = ll->head;
+		// 새로운 ListNode 하나를 힙 메모리에 만들고, 그 주소를 'll->head'에 저장 
 		ll->head = malloc(sizeof(ListNode));
 		ll->head->item = value;
 		ll->head->next = cur;
-		ll->size++;
+		ll->size++; //리스트의 노드개수 +1
 		return 0;
 	}
 
