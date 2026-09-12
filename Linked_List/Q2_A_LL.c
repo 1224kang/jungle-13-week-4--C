@@ -104,6 +104,49 @@ int main()
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
     /* add your code here */
+
+	ListNode *pre;
+	ListNode *curr;
+
+	ListNode *tmp;
+	ListNode *tmp2;
+
+	pre=ll1->head;
+	curr=ll1->head->next;
+	tmp=ll2->head;
+	tmp2=ll2->head->next;
+
+	while (curr!=NULL && tmp2!=NULL){
+		//ptr2 값을 ptr1+next에 삽입 
+		pre->next=tmp;
+		tmp->next=curr;
+
+		//ll2 원소를 삭제 
+		ll2->head=tmp2;
+
+		//pre가 curr를 참조하도록 함
+		pre=curr;
+		curr=curr->next;
+
+		tmp=tmp2;
+		tmp2=tmp2->next;
+		
+	}
+
+	//ll1 or ll2에 아직 값이 남아있는 경우 
+	if (tmp2!=NULL){
+		printf("지금 시작");
+		pre->next=tmp;
+		tmp->next=NULL;
+		ll2->head=tmp2; //삭제
+	}
+
+	else if (curr!=NULL){
+		pre->next=tmp;
+		tmp->next=curr;
+		ll2->head=NULL;
+	}
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
