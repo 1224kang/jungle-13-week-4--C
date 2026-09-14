@@ -103,6 +103,51 @@ int main()
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
 	/* add your code here */
+	ListNode *curr=ll->head;
+
+	ListNode *frontHead=NULL;
+	ListNode *frontTail=NULL;
+	ListNode *backHead=NULL;
+	
+	int size=ll->size;
+	int mid;
+	int count=0; //현재 원소 개수
+
+	//원소 개수가 홀수인 경우 
+	if (size%2!=0){
+		mid=size/2+1;
+	}
+	//원소 개수가 짝수인 경우
+	else{
+		mid=size/2;
+	}
+
+	while(count<mid && curr!=NULL){
+		//링크드리스트의 첫 원소를 가리킬 때 
+		if(frontHead==NULL){
+			frontHead=curr;
+		}
+
+		frontTail=curr;
+		count++;
+		curr=curr->next;
+	}
+
+
+	backHead=curr; //⭐️왜 backTail은 별도로 필요가 없을까? 
+	
+
+	if(frontTail!=NULL){
+		frontTail->next=NULL;
+	}
+
+	resultFrontList->head=frontHead;
+	resultBackList->head=backHead;
+	
+	//🚨 main에서 ll,resultFrontList 모두를 free하고 있음 
+	//같은 링크드 리스트, 즉 하나의 메모리를 두 번 free 처리 하고 있기 때문에 'trace trap'이 발생. 
+	ll->head=NULL;
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
