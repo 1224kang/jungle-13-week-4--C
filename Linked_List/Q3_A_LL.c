@@ -86,7 +86,67 @@ int main()
 
 void moveOddItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+	ListNode *start=ll->head;
+
+	//🚨 포인터 초기화 필수 
+	ListNode *oddHead=NULL;
+	ListNode *oddTail=NULL;
+	ListNode *evenHead=NULL;
+	ListNode *evenTail=NULL;
+
+	while(start!=NULL){
+		int val=start->item; 
+		//홀수인 경우
+		if(val%2!=0){
+			//첫 홀수인 경우 
+			if (oddHead==NULL){
+				oddHead=start;
+				oddTail=start;
+			}
+
+			//이미 홀수인 아이들이 있는 경우 
+			else{
+				oddTail->next=start;  //1 - > 3 연결 (홀수끼리만 연결.. 직접..)
+				oddTail=start;//1,3,5, .. 에서 oddTail이 1일 때, oddTail을 3으로 옮겨주는 역할?
+			}
+		}
+
+		//짝수인 경우 
+		else{
+			//첫 짝수인 경우 
+			if(evenHead==NULL){
+				evenHead=start;
+				evenTail=start;
+			}
+			
+			else{
+				evenTail->next=start;
+				evenTail=start;
+			}
+		}
+
+		start=start->next;
+		
+	}
+
+	//홀수가 존재할 때 (무한루프 방지)
+	if (oddTail!=NULL){
+		oddTail->next=NULL;
+	}
+
+	//짝+홀 
+	if(evenHead!=NULL){
+		evenTail->next=oddHead;
+		ll->head=evenHead;
+	}
+	//홀수만 있을 때 
+	else{
+		ll->head=oddHead;
+	}
+
+	
+
+	
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
