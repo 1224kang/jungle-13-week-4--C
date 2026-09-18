@@ -104,6 +104,29 @@ int main()
 int isStackPairwiseConsecutive(Stack *s)
 {
   /* add your code here */
+
+  while(s->ll.head!=NULL){
+	ListNode *cur=s->ll.head;
+  	ListNode *next=cur->next;
+
+	//size가 홀수인 경우 0 반환
+	if(next==NULL){
+		return 0;
+	}
+
+	//cur,next 두개 원소 pop
+	s->ll.head=next->next;
+	
+	//연속하지 않은 경우 0 반환
+	int val=abs(cur->item-next->item);
+	if(val!=1){
+		return 0;
+	}
+
+  }
+
+  return 1;
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////
