@@ -114,11 +114,85 @@ int main()
 void createStackFromLinkedList(LinkedList *ll, Stack *s)
 {
     /* add your code here */
+	ListNode *stack=s->ll.head;
+	ListNode *node=ll->head;
+
+	//ll이 비어있는 경우 
+	if (ll->head==NULL || ll->size==0){
+		return;
+	}
+
+	//스택 비우기
+	ListNode *del=NULL;
+	if(stack!=NULL){
+		while(stack!=NULL){
+			del=stack;
+			stack=stack->next;
+			free(del);
+		}
+	}
+	s->ll.head=NULL;
+	s->ll.size=0;
+
+	while(node!=NULL){
+		ListNode *temp=malloc(sizeof(ListNode));
+
+		temp->item=node->item;
+
+		//첫번째 원소인 경우 
+		if(stack==NULL){
+			s->ll.head=temp;
+			stack=temp;
+		}
+		//중간 원소 
+		else{
+			temp->next=stack;
+			stack=temp;
+			
+		}
+
+		node=node->next;
+		s->ll.size++;
+	}
+
+	s->ll.head=stack;
 }
 
 void removeEvenValues(Stack *s)
 {
 	/* add your code here */
+	ListNode *odd=NULL; //임시 스택의 top 포인터
+
+	while(s->ll.head!=NULL){
+		ListNode *cur=s->ll.head;
+		ListNode *next=cur->next;
+
+		//원래 stack에서 pop
+		s->ll.head=next;
+		
+
+		//짝수인 경우 pop
+		if(cur->item %2 ==0){
+			free(cur);
+			s->ll.size--;
+		}
+
+		//홀수는 다른 스택으로 옮김 
+		else{
+			cur->next=odd; //임시 스택 맨 앞에 홀수값을 옮겨놔야 하므로 
+			odd=cur;
+		}
+
+	}
+
+	//odd 스택에서 다시 원래 스택으로 push⭐️
+	while(odd!=NULL){
+		ListNode *curr=odd;	
+		odd=odd->next;
+
+		curr->next = s->ll.head;
+   		s->ll.head = curr;
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////
