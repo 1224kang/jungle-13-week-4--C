@@ -117,6 +117,51 @@ int main()
 void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 {
 	/* add your code here */
+	// removeAllItems(q);
+	ListNode *node=ll->head; //ll용 포인터 
+	ListNode *temp=q->ll.head;
+	ListNode *cur=NULL;
+
+	//큐 비우기 
+	while(temp!=NULL){
+		cur=temp->next;
+		free(temp);
+		temp=cur;
+	}
+	q->ll.head=NULL;
+	q->ll.size=0;
+
+
+	//원본 linked list가 비어있으면 종료
+	if(ll->head==NULL || ll->size==0){
+		return;
+	}
+
+	while(node!=NULL){
+		ListNode *queue=malloc(sizeof(ListNode));
+
+		queue->item=node->item;
+		queue->next=NULL; //새로 만든 노드의 next에 쓰레기값이 들어올 수 있음
+
+		//queue의 첫 원소인 경우 
+		if(q->ll.head==NULL){
+			q->ll.head=queue;
+			cur=queue;
+		}
+
+		//queue에 이미 원소가 존재하는 경우
+		else{
+			cur->next=queue;
+			cur=cur->next;
+		}
+
+		q->ll.size++;
+		node=node->next;
+		
+	}
+
+
+	
 }
 
 void removeOddValues(Queue *q)
