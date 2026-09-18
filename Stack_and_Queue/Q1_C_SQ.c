@@ -159,14 +159,45 @@ void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 		node=node->next;
 		
 	}
-
-
 	
 }
 
 void removeOddValues(Queue *q)
 {
 	/* add your code here */
+	ListNode *cur=q->ll.head;
+	ListNode *prev=NULL;
+
+	if (q->ll.head==NULL){
+		return;
+	}
+
+	while(cur!=NULL){
+		//홀수일 때
+		if(cur->item % 2 !=0){
+			ListNode *temp=cur;
+
+			//첫번째 노드 삭제
+			if(prev==NULL){
+				q->ll.head=cur->next;
+				cur=q->ll.head;
+			}
+			//중간 or 마지막 노드 삭제 
+			else{
+				prev->next=cur->next;
+				cur=cur->next;
+			}
+			free(temp);
+			q->ll.size--;
+		}
+		
+		//짝수일 때 
+		else{
+			prev=cur;
+			cur=cur->next;
+		}
+	}
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////
